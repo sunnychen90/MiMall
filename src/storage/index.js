@@ -1,0 +1,1 @@
+/*存放 localstorage 或SessionStorage*/
