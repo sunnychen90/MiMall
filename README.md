@@ -1,2 +1,5 @@
-# miMall
-这个是个人 Vue全家桶高仿 小米官网项目
+# MiMall Vue3.0全家桶 仿小米官网项目
+
+# 运行
+    1. npm install
+    2. npm run serve
