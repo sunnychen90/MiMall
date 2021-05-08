@@ -1,11 +1,11 @@
 <template>
-    <div>这里是头部</div>
+    <div>这里是order-header</div>
 </template>
 
 <script>
 //头部导航nav组件
 export default {
-    name: 'nav-header'
+    name: 'order-header'
 }
 </script>
 
