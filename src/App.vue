@@ -10,10 +10,17 @@ export default {
   name: 'app',
   components: {},
   data() {
-    return {}
+    return {
+      res: {}
+    }
   },
   mounted() {
     // storage.setItem('sex', 1,'user');
+
+    //mock 请求本地json文件
+    this.axios.get('/mock/user/login.json').then((res) => {
+        this.res = res;
+    })
   }
 }
 
