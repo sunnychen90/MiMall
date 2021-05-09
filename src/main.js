@@ -4,7 +4,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
 import App from './App.vue'
-import env from './env'
+// import env from './env'
+
+//mock 开关
+const mock = true;
+if(mock){
+  require('./mock/api');
+}
+
 /**
  * axios文档: https://www.kancloud.cn/yunye/axios/234845
  * axios 设置基础值,根据前端跨域方式做调整(CORS、JSONP 、代理Proxy)
@@ -18,7 +25,9 @@ import env from './env'
  * 
  **/
 
-axios.defaults.baseURL = env.baseURL;
+// axios.defaults.baseURL = env.baseURL;
+
+axios.defaults.baseURL = '/api';
 axios.defaults.timeout = 8000;
 
 
@@ -37,8 +46,8 @@ axios.interceptors.response.use(function(response) {
 })
 
 //接口请求拦截
-axios.interceptors.request.use(function(){
-  
+axios.interceptors.request.use(function(config){
+    return config;
 })
 
 Vue.use(VueAxios, axios);
