@@ -13,11 +13,7 @@ export default {
     return {}
   },
   mounted() {
-    storage.setItem('sex', 1,'user');
-    // storage.clear('a')
-    // storage.clear('a','user')
-    // storage.clear('sex','user')
-  }
+    // storage.setItem('sex', 1,'user');
 }
 
 </script>
