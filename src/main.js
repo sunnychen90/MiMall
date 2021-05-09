@@ -4,12 +4,23 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
 import App from './App.vue'
+import env from './env'
+/**
+ * axios文档: https://www.kancloud.cn/yunye/axios/234845
+ * axios 设置基础值,根据前端跨域方式做调整(CORS、JSONP 、代理Proxy)
+ * 
+ * Proxy方式(在vue.config.js中配置)：
+ *  axios.defaults.baseURL = '/api'; 
+ * 
+ * CORS方式和JSONP的方式(在env.js中配置)：
+ * 根据env.js中的环境变量，获得url的接口地址
+ * axios.defaults.baseURL = env.baseURL;
+ * 
+ **/
 
-
-//axios文档:https://www.kancloud.cn/yunye/axios/234845
-//axios 设置基础值,根据前端跨域方式做调整
-axios.defaults.baseURL ='/api';
+axios.defaults.baseURL = env.baseURL;
 axios.defaults.timeout = 8000;
+
 
 //接口错误拦截
 axios.interceptors.response.use(function(response) {
