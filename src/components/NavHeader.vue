@@ -25,15 +25,39 @@
                 <div class="header-menu">
                     <div class="item-menu">
                         <span>小米手机</span>
-                        <div class="children"></div>
+                        <div class="children">
+                            <ul>
+                                <li class="product" v-for="(item, index) in phoneList" :key="index">
+                                    <a :href="'/#/product/'+ item.id" target="_blank">
+                                        <div class="pro-img">
+                                            <img :src="item.mainImage" :alt="item.subtitle">
+                                        </div>
+                                        <div class="pro-name">{{item.name}}</div>
+                                        <div class="pro-price">{{item.price | currency}}</div>
+                                    </a>
+                                </li>                                                                                       
+                            </ul>
+                        </div>
                     </div>
                     <div class="item-menu">
                         <span>RedMi红米</span>
-                        <div class="children"></div>
                     </div>
                     <div class="item-menu">
                         <span>电视</span>
-                        <div class="children"></div>
+                        <div class="children">
+                            <ul>
+                                <li class="product" v-for="(item,index) in tvList" :key="index">
+                                    <a href="" target="_blank">
+                                        <div class="pro-img">
+                                            <!-- <img src="/imgs/nav-img/nav-3-1.jpg" alt=""> -->
+                                            <img :src="item.url" alt="">
+                                        </div>
+                                        <div class="pro-name">{{item.name}}</div>
+                                        <div class="pro-price">{{item.price}}元</div>
+                                    </a>
+                                </li>                                                                                       
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="header-search">
@@ -51,13 +75,44 @@
 <script>
 //头部导航nav组件
 export default {
-    name: 'nav-header'
+    name: 'nav-header',
+    data(){
+        return {
+            username:'Scar',
+            phoneList:[],
+            tvList:[]
+        }
+    },
+    filters: {
+        currency(val){
+            if(!val) return '0.00';
+            return '￥' + val.toFixed(2) + '元'
+        }
+    },
+    mounted(){
+        this.getProductList()
+    },
+    methods:{
+        getProductList(){
+            this.axios.get('/products',{
+                params: {
+                    categoryId: '100012'
+                }
+            }).then( (res)=> {
+                // Math.max(res.list,6);
+                if(res.list > 6){
+                    this.phoneList = res.list.slice(0,6);
+                }
+            })
+        }    
+    }
 }
 </script>
 
 <style lang="scss">
     @import './../assets/scss/base.scss';
     @import './../assets/scss/mixin.scss';
+    @import './../assets/scss/config.scss';
     .header{
         .nav-topbar{
             height: 39px;
@@ -86,13 +141,14 @@ export default {
         }
         .nav-header{
             .container{
+                position: relative;
                 height: 112px;
                 @include flex();                
                 .header-logo{
                     display: inline-block;
                     width: 55px;
                     height: 55px;
-                    background-color: #FF6600;
+                    background-color:$colorA;
                     a{
                         display: inline-block;
                         width: 110px;
@@ -126,7 +182,65 @@ export default {
                             cursor: pointer;                            
                         }
                         &:hover{
-                            color: #FF6600;
+                            color: $colorA;
+                            .children{
+                                height: 220px;
+                                opacity: 1;
+                            }
+                        }
+                        .children{
+                            position: absolute;
+                            top:112px;
+                            left: 0;
+                            width: 1226px;
+                            height: 0;
+                            opacity: 0;
+                            overflow: hidden;
+                            border-top: 1px solid $colorH;
+                            box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, .11);                            
+                            z-index: 10; 
+                            transition: height 0.5s;                        
+                            .product{
+                                float: left;
+                                width: 16.6%;
+                                height: 220px;
+                                font-size: 12px;
+                                line-height: 12px;
+                                text-align: center; 
+                                position: relative;                             
+                                a{
+                                    display: inline-block;
+                                }
+                                img{
+                                    width: auto;
+                                    height: 111px;
+                                    margin-top: 26px;
+                                }
+                                .pro-img{
+                                    height: 137px;
+                                }
+                                .pro-name{
+                                    font-weight: bold;
+                                    margin-top: 19px;
+                                    margin-bottom: 8px;
+                                    color: $colorB;
+                                }
+                                .pro-price{
+                                    color: $colorA;
+                                }
+                                &:before{
+                                    content: ' ';
+                                    position:absolute;
+                                    top: 28px;
+                                    right: 0;
+                                    border-left:1px solid $colorF;
+                                    height: 100px;
+                                    width: 1px;                                    
+                                }
+                                &:last-child:before{
+                                    display: none;
+                                }
+                            }
                         }
                     }
 
