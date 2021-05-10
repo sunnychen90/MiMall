@@ -1,5 +1,5 @@
 <template>
-    <div>这里是底部</div>
+    <div></div>
 </template>
 
 <script>
