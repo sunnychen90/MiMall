@@ -9,9 +9,10 @@
                     <a href="javascript:;">协议规则 </a>
                 </div>
                 <div class="topbar-user">
-                    <a href="javascript:;">登录</a>
-                    <a href="javascript:;">注册</a>
-                    <a href="javascript:;" class="my-cart">
+                    <a href="javascript:;" v-if="username">{{username}}</a>
+                    <a href="javascript:;" v-if="!username" @click="login">登录</a>
+                    <a href="javascript:;" v-if="username">我的订单</a>
+                    <a href="javascript:;" class="my-cart" @click="goToCart">
                         <span class="icon-cart"></span> 购物车
                     </a>
                 </div>
@@ -78,7 +79,7 @@ export default {
     name: 'nav-header',
     data(){
         return {
-            username:'Scar',
+            username:'',
             phoneList:[],
             tvList:[]
         }
@@ -86,25 +87,35 @@ export default {
     filters: {
         currency(val){
             if(!val) return '0.00';
-            return '￥' + val.toFixed(2) + '元'
+            return '￥' + val.toFixed(2) + '元';
         }
     },
     mounted(){
         this.getProductList()
     },
     methods:{
+        login(){
+            this.$router.push('/login')
+        },
+
         getProductList(){
             this.axios.get('/products',{
                 params: {
-                    categoryId: '100012'
+                    categoryId: '100012',
+                    pageSize:6
                 }
             }).then( (res)=> {
                 // Math.max(res.list,6);
-                if(res.list > 6){
+                if(res.list.length >= 6){
                     this.phoneList = res.list.slice(0,6);
                 }
             })
-        }    
+        },
+        goToCart(){
+            //跳转路由用$router.push(), 取参用$router.params()或者 $router.query()
+            this.$router.push('/cart') //跳转到购物车页面
+        }
+
     }
 }
 </script>
