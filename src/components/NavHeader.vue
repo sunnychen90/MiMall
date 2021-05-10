@@ -50,7 +50,6 @@
                                 <li class="product" v-for="(item,index) in tvList" :key="index">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <!-- <img src="/imgs/nav-img/nav-3-1.jpg" alt=""> -->
                                             <img :src="item.url" alt="">
                                         </div>
                                         <div class="pro-name">{{item.name}}</div>
