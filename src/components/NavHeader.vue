@@ -105,9 +105,8 @@ export default {
                 }
             }).then( (res)=> {
                 // Math.max(res.list,6);
-                if(res.list.length >= 6){
-                    this.phoneList = res.list.slice(0,6);
-                }
+                // this.phoneList = res.list.slice(0,6);
+                this.phoneList = res.list;
             })
         },
         goToCart(){
@@ -209,7 +208,8 @@ export default {
                             border-top: 1px solid $colorH;
                             box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, .11);                            
                             z-index: 10; 
-                            transition: height 0.5s;                        
+                            transition: height 0.5s;     
+                            background-color: #FFFFFF;                   
                             .product{
                                 float: left;
                                 width: 16.6%;
